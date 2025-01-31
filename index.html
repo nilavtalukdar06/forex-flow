@@ -2,12 +2,74 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/src/javascript.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <!-- Font Awsome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Font Awsome CDN -->
+    <title>Forex Flow</title>
   </head>
   <body>
-    <main id="app"></main>
+    <main id="app">
+      <div class="container">
+        <div class="card">
+          <h1 class="heading">Currency Converter</h1>
+
+          <!-- Input -->
+          <div class="input-container">
+            <label for="amount" class="large-text">Enter Amount</label>
+            <input id="amount" class="input" placeholder="Enter Amount" />
+          </div>
+          <!-- Input -->
+
+          <!-- Conversion Container -->
+          <div class="conversion-container">
+            <div class="currency-from currency">
+              <p class="conversion-text large-text">From</p>
+              <img
+                class="country-from country"
+                src="https://flagsapi.com/US/shiny/24.png"
+              />
+              <p class="currency-code-from currency-code">USD</p>
+              <i class="fa-solid fa-chevron-down arrow-down"></i>
+            </div>
+            <button class="swap">
+              <i class="fa-solid fa-right-left"></i>
+            </button>
+            <div class="currency-to currency">
+              <p class="conversion-text large-text">To</p>
+              <img
+                class="country-to country"
+                src="https://flagsapi.com/IN/shiny/24.png"
+              />
+              <p class="currency-code-to currency-code">INR</p>
+              <i class="fa-solid fa-chevron-down arrow-down"></i>
+            </div>
+          </div>
+          <!-- Conversion Container -->
+
+          <!-- Result -->
+          <p class="result-text">
+            <span class="value-from">1</span>
+            <span class="from">USD</span>
+            <span>=</span>
+            <span class="value-to">83</span>
+            <span class="to">INR</span>
+          </p>
+          <!-- Result -->
+
+          <!-- Exchange Rate Button -->
+          <button class="result">Get Exchange Rate</button>
+          <!-- Exchange Rate Button -->
+        </div>
+      </div>
+    </main>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
