@@ -22,7 +22,7 @@ export const country_list = {
   BOB: "BO",
   BRL: "BR",
   BSD: "BS",
-  NOK: "BV",
+  NOK: "NO",
   BWP: "BW",
   BYR: "BY",
   BZD: "BZ",

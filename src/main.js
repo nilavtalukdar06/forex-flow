@@ -1,4 +1,3 @@
-import "./style.css";
 import { country_list } from "./country";
 const apiKey = import.meta.env.VITE_API_KEY;
 const input = document.querySelector(".input");
@@ -11,10 +10,88 @@ const app = document.querySelector("#app");
 const container = document.querySelector(".container");
 const countryFrom = document.querySelector(".country-from");
 const countryTo = document.querySelector(".country-to");
+const optionFrom = document.querySelector(".option-from");
+const optionTo = document.querySelector(".option-to");
+const currencyFrom = document.querySelector(".currency-from");
+const currencyTo = document.querySelector(".currency-to");
 
+//Initial Values
 input.value = 1;
 let codeFrom = currencyCodeFrom.innerHTML;
 let codeTo = currencyCodeTo.innerHTML;
+
+//Appending countries dynamically based on the number of countries
+const countries = Object.keys(country_list);
+countries.forEach((country) => {
+  const div = document.createElement("div");
+  div.setAttribute("class", "option-container-from option-container");
+  div.innerHTML = `<img
+                      src="https://flagsapi.com/${country_list[country]}/flat/24.png" loading="lazy"
+                    />
+                   <p class="currency-code dynamic-currency-code-from">${country}</p>`;
+  optionFrom.append(div);
+});
+
+countries.forEach((country) => {
+  const div = document.createElement("div");
+  div.setAttribute("class", "option-container option-container-to");
+  div.innerHTML = `<img
+                      src="https://flagsapi.com/${country_list[country]}/flat/24.png" loading="lazy"
+                    />
+                   <p class="currency-code dynamic-currency-code-to">${country}</p>`;
+  optionTo.append(div);
+});
+
+// pop up select menus
+optionFrom.style.display = "none";
+optionTo.style.display = "none";
+
+currencyFrom.addEventListener("click", (event) => {
+  event.stopPropagation();
+  optionFrom.style.display = "flex";
+  document.addEventListener("click", (event) => {
+    event.stopPropagation();
+    optionFrom.style.display = "none";
+  });
+});
+
+currencyTo.addEventListener("click", (event) => {
+  event.stopPropagation();
+  optionTo.style.display = "flex";
+  document.addEventListener("click", (event) => {
+    event.stopPropagation();
+    optionTo.style.display = "none";
+  });
+});
+
+//set values of currency and flag according to user
+const optionContainerFrom = document.querySelectorAll(".option-container-from");
+Array.from(optionContainerFrom).forEach((value) => {
+  value.addEventListener("click", (event) => {
+    event.stopPropagation();
+    currencyCodeFrom.innerHTML = value.innerText;
+    codeFrom = value.innerText;
+    countryFrom.setAttribute(
+      "src",
+      `https://flagsapi.com/${country_list[value.innerText]}/flat/24.png`
+    );
+    optionFrom.style.display = "none";
+  });
+});
+
+const optionContainerTo = document.querySelectorAll(".option-container-to");
+Array.from(optionContainerTo).forEach((value) => {
+  value.addEventListener("click", (event) => {
+    event.stopPropagation();
+    currencyCodeTo.innerHTML = value.innerText;
+    codeTo = value.innerText;
+    countryTo.setAttribute(
+      "src",
+      `https://flagsapi.com/${country_list[value.innerText]}/flat/24.png`
+    );
+    optionTo.style.display = "none";
+  });
+});
 
 // Fetching api data
 const fetchData = async (valueFrom = 1, from = "USD", to = "INR") => {
@@ -42,20 +119,21 @@ const fetchData = async (valueFrom = 1, from = "USD", to = "INR") => {
 const calculate = (response, valueFrom, from, to) => {
   const { conversion_rates } = response;
   const rate = conversion_rates[to];
-  resultText.innerHTML = `${valueFrom} ${from} = ${
-    valueFrom * rate.toFixed(2)
-  } ${to}`;
+  resultText.innerHTML = `${valueFrom} ${from} = ${(valueFrom * rate).toFixed(
+    2
+  )} ${to}`;
 };
 
 //shows the initial data when the window is loaded
-window.addEventListener("load", (codeFrom, codeTo) => {
+window.addEventListener("DOMContentLoaded", () => {
   countryFrom.setAttribute(
     "src",
-    `https://flagsapi.com/${country_list[codeFrom]}/shiny/24.png`
+    `https://flagsapi.com/${country_list[codeFrom]}/flat/24.png`
   );
+
   countryTo.setAttribute(
     "src",
-    `https://flagsapi.com/${country_list[codeTo]}/shiny/24.png`
+    `https://flagsapi.com/${country_list[codeTo]}/flat/24.png`
   );
   resultText.innerHTML = "Getting Exchange Rate...";
   fetchData();
@@ -72,9 +150,9 @@ const swap = () => {
 
 //change the flags of the country based on user selection
 const changeFlag = (codeFrom, codeTo) => {
-  let countryUrlFrom = `https://flagsapi.com/${country_list[codeFrom]}/shiny/24.png`;
+  let countryUrlFrom = `https://flagsapi.com/${country_list[codeFrom]}/flat/24.png`;
   countryFrom.setAttribute("src", countryUrlFrom);
-  let countryUrlTo = `https://flagsapi.com/${country_list[codeTo]}/shiny/24.png`;
+  let countryUrlTo = `https://flagsapi.com/${country_list[codeTo]}/flat/24.png`;
   countryTo.setAttribute("src", countryUrlTo);
 };
 
@@ -84,7 +162,7 @@ swapButton.addEventListener("click", () => swap());
 //clicking this button performs conversion based on user preference
 button.addEventListener("click", () => {
   const value = Number(input.value);
-  if (isNaN(value)) {
+  if (isNaN(value) && value >= 0) {
     alert("Enter only Number");
     input.value = "";
   } else {
