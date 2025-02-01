@@ -64,7 +64,7 @@ currencyTo.addEventListener("click", (event) => {
   });
 });
 
-//set values of currency and flag according to user
+//set values of currencies and flags according to the user
 const optionContainerFrom = document.querySelectorAll(".option-container-from");
 Array.from(optionContainerFrom).forEach((value) => {
   value.addEventListener("click", (event) => {
@@ -139,7 +139,7 @@ window.addEventListener("DOMContentLoaded", () => {
   fetchData();
 });
 
-//swap the countries and it's currency values
+//swap the countries and it's currency value
 const swap = () => {
   codeFrom = currencyCodeTo.innerHTML;
   codeTo = currencyCodeFrom.innerHTML;
@@ -148,7 +148,7 @@ const swap = () => {
   changeFlag(codeFrom, codeTo);
 };
 
-//change the flags of the country based on user selection
+//change the flags of the countries based on user selection
 const changeFlag = (codeFrom, codeTo) => {
   let countryUrlFrom = `https://flagsapi.com/${country_list[codeFrom]}/flat/24.png`;
   countryFrom.setAttribute("src", countryUrlFrom);
@@ -163,7 +163,7 @@ swapButton.addEventListener("click", () => swap());
 button.addEventListener("click", () => {
   const value = Number(input.value);
   if (isNaN(value) || value <= 0) {
-    alert("Enter only Number");
+    alert("Invalid Input");
     input.value = "";
   } else {
     resultText.innerHTML = "Getting Exchange Rate...";
