@@ -162,7 +162,7 @@ swapButton.addEventListener("click", () => swap());
 //clicking this button performs conversion based on user preference
 button.addEventListener("click", () => {
   const value = Number(input.value);
-  if (isNaN(value) && value >= 0) {
+  if (isNaN(value) || value <= 0) {
     alert("Enter only Number");
     input.value = "";
   } else {
