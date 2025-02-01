@@ -2,10 +2,10 @@
 
 /* CSS Variables */
 :root {
-  --primary-color: "#675afe";
-  --secondary-color: "#ffffff";
-  --tertiary-color: "#00000040";
-  --color-on-hover: "#0000ff";
+  --primary-color: #675afe;
+  --secondary-color: #ffffff;
+  --tertiary-color: #00000040;
+  --color-on-hover: #0000ff;
 }
 
 /* CSS Reset */
@@ -106,7 +106,7 @@
   padding: 10px 20px;
   border: none;
   color: var(--secondary-color);
-  background-color: #675afe;
+  background-color: var(--primary-color);
   transition: all 0.3s ease-in-out 0s;
   cursor: pointer;
   font-size: 16px;
